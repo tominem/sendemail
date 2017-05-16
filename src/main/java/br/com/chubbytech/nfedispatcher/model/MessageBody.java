@@ -19,15 +19,15 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 public class MessageBody implements TagEmail {
 
 	@XStreamAsAttribute
-	@Size(min=4, message="O atributo (subject) da <mensagem> deve conter no mínimo {min} caracteres")
+	@Size(min=4, message="O atributo (subject) da [mensagem] deve conter no mínimo {min} caracteres")
 	private String  subject;
 	
 	@XStreamAsAttribute
-	@NotNull(message="O atributo (content) da tag <mensagem> não pode ser nulo, informe: \"text/plain; charset=UTF-8\" ou \"text/html; charset=utf-8\"")
+	@NotNull(message="O atributo (content) da tag [mensagem] não pode ser nulo, informe: \"text/plain; charset=UTF-8\" ou \"text/html; charset=utf-8\"")
 	private String  content = "text/plain; charset=UTF-8";
 	
 	@XStreamAsAttribute
-	@Size(min=15, message="O conteúdo (text) da <mensagem> deve conter no mínimo {min} caracteres")
+	@Size(min=15, message="O conteúdo (text) da [mensagem] deve conter no mínimo {min} caracteres")
 	private String  text;
 	
 	@XStreamAlias("msg-parameters")

@@ -13,7 +13,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 public class Address {
 
 	@XStreamAsAttribute
-	@Email(message="atributo value=[${validatedValue}] da tag <address> é inválido, informe o value seguindo o padrão, ex: user@gmail.com")
+	@Email(message="atributo value=[${validatedValue}] da tag [address] é inválido, informe o value seguindo o padrão, ex: user@gmail.com")
 	private String value;
 
 	public Address() {

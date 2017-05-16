@@ -36,7 +36,7 @@ public class From implements Serializable, TagEmail {
 	
 	@XStreamAsAttribute
 	@NotNull(message="O usuário deve ser informado")
-	@Email(message="Usuário informado na tag <from> [${validatedValue}] não segue o formato, ex: usuario@gmail.com")
+	@Email(message="Usuário informado na tag [from] [${validatedValue}] não segue o formato, ex: usuario@gmail.com")
 	private String  username;
 	
 	@XStreamAsAttribute

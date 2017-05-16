@@ -21,6 +21,8 @@ public class SendEmailTest {
 
 		Email email = Email.fromXML(new File("C:/Users/tom/email-01.xml"));
 		
+//		Email.validate(email);
+		
 		new SendMail(email).send();
 		
 	}

@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 public class XMLFileScanner implements Runnable{
 
+	private long lastDate;
 
 	@Override
 	public void run() {
@@ -15,11 +16,14 @@ public class XMLFileScanner implements Runnable{
     	
     	File basePath = new File(basePathStr);
     	
-    	File[] files = basePath.listFiles((f) -> !f.getName().startsWith("resp-") && f.getName().endsWith(".xml"));
+    	File[] files = basePath.listFiles((f) -> f.lastModified() > lastDate && !f.getName().startsWith("resp-") && f.getName().endsWith(".xml"));
     	
-    	if (files != null) {
+    	if (files != null)
+    	{
     		
     		Arrays.sort(files, (f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()));
+    		
+    		lastDate = files[files.length].lastModified();
     		
     		for (File file : files) {
     			

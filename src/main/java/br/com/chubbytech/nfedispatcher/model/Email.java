@@ -6,9 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import javax.validation.constraints.NotNull;
 
 import com.thoughtworks.xstream.XStream;
@@ -17,8 +15,6 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @XStreamAlias("email")
 public class Email implements TagEmail {
 
-	private static Validator validator;
-	
 	@NotNull(message="É obrigatório informar o id do email")
 	private String id;
 
@@ -79,16 +75,15 @@ public class Email implements TagEmail {
 		xstream.aliasSystemAttribute(null, "class");
 		xstream.processAnnotations(Email.class);
 		
-		return (Email) xstream.fromXML(file);
+		Email email = (Email) xstream.fromXML(file);
+		
+		return email;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static void validate(Email email){
 		
-		if (validator == null) {
-			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-			validator 				 = factory.getValidator();
-		}
+		Validator validator = ValidorUtis.getInstance();
 		
 		From from 			= email.getFrom();
 		TO to 				= email.getTo();

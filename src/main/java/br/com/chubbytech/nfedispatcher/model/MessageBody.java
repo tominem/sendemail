@@ -58,6 +58,7 @@ public class MessageBody implements TagEmail {
 	public String getText() {
 		try {
 			if (text.toLowerCase().startsWith("file://")) {
+				text = text.substring("file://".length());
 				text = new String(Files.readAllBytes(Paths.get(text)));
 			}
 			
@@ -78,7 +79,7 @@ public class MessageBody implements TagEmail {
 			
 		});
 	}
-
+	
 	public void setText(String text) {
 		this.text = text;
 	}

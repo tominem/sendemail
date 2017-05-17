@@ -1,7 +1,5 @@
 package br.com.chubbytech.nfedispatcher.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -26,12 +24,8 @@ import javax.mail.internet.MimeMultipart;
 import br.com.chubbytech.nfedispatcher.model.Address;
 import br.com.chubbytech.nfedispatcher.model.Attachment;
 import br.com.chubbytech.nfedispatcher.model.Email;
-import br.com.chubbytech.nfedispatcher.model.ErrorResponse;
 import br.com.chubbytech.nfedispatcher.model.From;
-import br.com.chubbytech.nfedispatcher.model.InvalidationException;
 import br.com.chubbytech.nfedispatcher.model.MessageBody;
-import br.com.chubbytech.nfedispatcher.model.Response;
-import br.com.chubbytech.nfedispatcher.model.Status;
 import br.com.chubbytech.nfedispatcher.model.TO;
 
 public class SendMail {
@@ -42,87 +36,27 @@ public class SendMail {
 		this.email = email;
 	}
 	
-	public void send(){
+	public void send() throws Exception {
+		
+		From from = email.getFrom();
+		
+		Email.validate(email);
+		
+		Properties emailProps = loadProps(from);
+		
+		String username = from.getUsername();
+		String senha	= null;
 		
 		try {
-			
-			From from = email.getFrom();
-			
-			Email.validate(email);
-			
-			Properties emailProps = loadProps(from);
-			
-			String username = from.getUsername();
-			String senha	= from.getPassword();
-			
-			Session session = createSession(emailProps, username, senha);
-			Message message = buildMessage(session, username);
-
-			Transport.send(message);
-			
-			responseOK(email.getId());
-			
+			senha = new EncryptDecrypt().decrypt(from.getPassword());
 		} catch (Exception e) {
-			
-			responseError(e, email.getId());
-			
+			throw new Exception(String.format("Erro no momento de descriptografar a senha, verifique se a senha está criptografada corretamente, motivo: %s", e.getMessage()));
 		}
 		
-	}
+		Session session = createSession(emailProps, username, senha);
+		Message message = buildMessage(session, username);
 
-	private void responseOK(String id) {
-
-		try {
-
-			Response response = new Response(Status.OK);
-			response.setId(id);
-			response.toXML(id);
-			
-		} catch (IOException ex) {
-			
-			ex.printStackTrace();
-			
-			//TODO imprimir o log
-			
-		}
-		
-	}
-
-	private void responseError(Exception e, String id) {
-		
-		try {
-			
-			Response response = new Response(Status.ERROR);
-			
-			List<ErrorResponse> errors = new ArrayList<>();
-			
-			if (e instanceof InvalidationException) {
-				
-				InvalidationException ex = (InvalidationException) e;
-				
-				errors = ex.getValidateCollections().stream()
-					.map(iex -> new ErrorResponse(iex.getMessage())).collect(Collectors.toList());
-				
-			}
-			
-			else {
-				
-				errors.add(new ErrorResponse(e.getMessage()));
-				
-			}
-			
-			response.setId(id);
-			response.setErrors(errors);
-			
-			response.toXML(id);
-			
-		} catch (Exception ex) {
-			
-			ex.printStackTrace();
-			
-			//TODO imprimir log
-			
-		}
+		Transport.send(message);
 		
 	}
 

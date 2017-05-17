@@ -15,8 +15,8 @@ public class App
     public static void main( String[] args )
     {
     	
-    	ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
-    	scheduler.scheduleAtFixedRate(new XMLFileScanner(), 5, 5, TimeUnit.SECONDS);
+    	ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    	scheduler.scheduleAtFixedRate(new XMLFileScanner(), 0, 5, TimeUnit.SECONDS);
     	
     }
 }

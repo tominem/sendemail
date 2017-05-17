@@ -49,12 +49,19 @@ public class Response {
 		this.errors = errors;
 	}
 
-	public void toXML(String id) throws IOException {
+	public void toXML() throws IOException {
 		XStream xstream = new XStream();
 		xstream.aliasSystemAttribute(null, "class");
 		xstream.processAnnotations(getClass());
 		
-		String path = String.format("%s/resp-%s.xml", System.getProperty("user.dir"), id);
+		String path = null;
+		
+		if (getStatus() == Status.ERROR) {
+			path = String.format("%s/resp-error-%s.xml", System.getProperty("user.dir"), getId());
+		}
+		else{
+			path = String.format("%s/resp-%s.xml", System.getProperty("user.dir"), getId());
+		}
 		
 		try(FileOutputStream fos = new FileOutputStream(new File(path)))
 		{

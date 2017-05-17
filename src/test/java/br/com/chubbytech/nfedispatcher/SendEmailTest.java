@@ -1,7 +1,5 @@
 package br.com.chubbytech.nfedispatcher;
 
-import java.io.File;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,18 +10,17 @@ import br.com.chubbytech.nfedispatcher.model.From;
 import br.com.chubbytech.nfedispatcher.model.MessageBody;
 import br.com.chubbytech.nfedispatcher.model.Parameter;
 import br.com.chubbytech.nfedispatcher.model.TO;
-import br.com.chubbytech.nfedispatcher.service.SendMail;
 
 public class SendEmailTest {
 	
 	@Test
 	public void send() {
 
-		Email email = Email.fromXML(new File("C:/Users/tom/email-01.xml"));
+//		Email email = Email.fromXML(new File("C:/Users/tom/email-01.xml"));
 		
 //		Email.validate(email);
 		
-		new SendMail(email).send();
+//		new SendMail(email).send();
 		
 	}
 		
@@ -34,8 +31,8 @@ public class SendEmailTest {
 		email.setId("XXX");
 		
 		From from = new From();
-		from.setUsername("tominemtom@gmail.com");
-		from.setPassword("ewtt159168");
+		from.setUsername("teste@gmail.com");
+		from.setPassword("FvwyBKhhLrnMaES6RbdADg==");
 		from.setSmtpHost("smtp.gmail.com");
 		from.setSmtpPort(587);
 		from.setSsl(true);
@@ -43,15 +40,15 @@ public class SendEmailTest {
 		from.setTls(true);
 		
 		TO to = new TO();
-		to.setAddresses(Address.asList("tominem@hotmail.com", "tominemtom@gmail.com"));
+		to.setAddresses(Address.asList("teste@gmail.com"));
 		
 		MessageBody messageBody = new MessageBody();
 		messageBody.setSubject("Teste de email 2");
 		messageBody.setText("Teste de envio de e-mail do tipo texto de: $meu_email,$meu_email para $outro_email");
 		messageBody.addAttachment(new Attachment("C:/Users/tom/pl.ini"));
 		messageBody.addAttachment(new Attachment("C:/Users/tom/soapui-settings.xml"));
-		messageBody.addParameters(new Parameter("$meu_email"  , "tominem@hotmail.com"));
-		messageBody.addParameters(new Parameter("$outro_email", "tominemtom@gmail.com"));
+		messageBody.addParameters(new Parameter("$meu_email"  , "teste@hotmail.com"));
+		messageBody.addParameters(new Parameter("$outro_email", "teste2@gmail.com"));
 		
 		email.setFrom(from);
 		email.setTo(to);

@@ -51,3 +51,4 @@ resp*.xml
 .cache-main
 .scala_dependencies
 .worksheet
+/sendmail.log

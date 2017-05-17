@@ -83,7 +83,7 @@ public class Email implements TagEmail {
 	@SuppressWarnings("unchecked")
 	public static void validate(Email email){
 		
-		Validator validator = ValidorUtis.getInstance();
+		Validator validator = ValidatorUtis.getInstance();
 		
 		From from 			= email.getFrom();
 		TO to 				= email.getTo();

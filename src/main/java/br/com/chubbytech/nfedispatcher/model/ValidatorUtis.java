@@ -4,7 +4,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-public class ValidorUtis {
+public class ValidatorUtis {
 
 	private static Validator validator;
 	

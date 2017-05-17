@@ -1,10 +1,14 @@
 package br.com.chubbytech.nfedispatcher.service;
 
 import static br.com.chubbytech.nfedispatcher.model.Email.fromXML;
+import static java.lang.String.format;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 
@@ -16,6 +20,8 @@ public class XMLFileScanner implements Runnable{
 	private long lastDate;
 	
 	private AtomicInteger count = new AtomicInteger(1);
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Override
 	public void run() {
@@ -43,20 +49,24 @@ public class XMLFileScanner implements Runnable{
 				try {
 					
 					email = fromXML(file);
-					
 					new SendMail(email).send();
-					
 					responseGenerator.responseOK(email.getId());
+					
+					logger.info(format("Email id: %s, enviado com sucesso", email.getId()));
 					
 				} catch (Exception e) {
 					
 					if (e instanceof CannotResolveClassException) {
+						String id = "ERR" + count.getAndIncrement();
 						e = new CannotCastXMLFile(String.format("Não foi possível carregar o arquivo %s, verifique o formato do mesmo", file.getAbsolutePath()));
-						responseGenerator.responseError(e, "ERR" + count.getAndIncrement());
+						responseGenerator.responseError(e, id);
+						logger.error(format("Não foi possível enviar o email id: %s, arquivo: %s ", id, file.getAbsolutePath()), e);
 					}
 					else{
 						responseGenerator.responseError(e, email.getId());
+						logger.error(format("Não foi possível enviar o email id: %s, arquivo: %s ", email.getId(), file.getAbsolutePath()), e);
 					}
+					
 					
 				} finally{
 					
@@ -64,15 +74,13 @@ public class XMLFileScanner implements Runnable{
 					
 					if (!delete) {
 						
-						System.out.println("Não deletou");
+						logger.error(format("Não foi possível deletar o arquivo: %s", file.getAbsolutePath()));
 						
 					}
 					
 				}
 				
 			}
-    		
-    		System.out.printf("Finalizou task %d", count.getAndIncrement());
     		
 		}
     	

@@ -1,12 +1,10 @@
 package br.com.chubbytech.nfedispatcher.model;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
 
 import com.thoughtworks.xstream.XStream;
@@ -80,26 +78,23 @@ public class Email implements TagEmail {
 		return email;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static void validate(Email email){
-		
-		Validator validator = ValidatorUtis.getInstance();
 		
 		From from 			= email.getFrom();
 		TO to 				= email.getTo();
 		MessageBody message = email.getMessageBody();
 		
-		Set<ConstraintViolation<Email>>       emailVal   = validator.validate(email  );
-		Set<ConstraintViolation<From>>        fromVal    = validator.validate(from   );
-		Set<ConstraintViolation<TO>>          ToVal      = validator.validate(to     );
-		Set<ConstraintViolation<MessageBody>> messageVal = validator.validate(message);
+//		Set<ConstraintViolation<TagEmail>>    emailVal   = email  );
+//		Set<ConstraintViolation<TagEmail>>    fromVal    = validator.validate(from   );
+//		Set<ConstraintViolation<TagEmail>>    ToVal      = validator.validate(to     );
+//		Set<ConstraintViolation<TagEmail>>    messageVal = validator.validate(message);
 		
 		Set<ConstraintViolation<TagEmail>> validateCollections = new HashSet<ConstraintViolation<TagEmail>>();
 		
-		validateCollections.addAll((Collection<? extends ConstraintViolation<TagEmail>>) emailVal  );
-		validateCollections.addAll((Collection<? extends ConstraintViolation<TagEmail>>) fromVal   );
-		validateCollections.addAll((Collection<? extends ConstraintViolation<TagEmail>>) ToVal     );
-		validateCollections.addAll((Collection<? extends ConstraintViolation<TagEmail>>) messageVal);
+		validateCollections.addAll(email.validate()  );
+		validateCollections.addAll(from.validate()   );
+		validateCollections.addAll(to.validate()     );
+		validateCollections.addAll(message.validate());
 		
 		if (validateCollections.size() > 0) {
 			

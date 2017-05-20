@@ -10,10 +10,10 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 @XStreamAlias("address")
-public class Address {
+public class Address implements TagEmail {
 
 	@XStreamAsAttribute
-	@Email(message="atributo value=[${validatedValue}] da tag [address] é inválido, informe o value seguindo o padrão, ex: user@gmail.com")
+	@Email(message="atributo value=[${validatedValue}] da tag [addresses] é inválido, informe o value seguindo o padrão, ex: user@gmail.com")
 	private String value;
 
 	public Address() {
@@ -39,5 +39,5 @@ public class Address {
 	public String toString() {
 		return value;
 	}
-
+	
 }

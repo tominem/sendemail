@@ -12,7 +12,6 @@ local.properties
 .recommenders
 .classpath
 .project
-.test
 resp*.xml
 
 # External tool builders

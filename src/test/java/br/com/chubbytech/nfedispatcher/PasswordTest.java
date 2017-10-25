@@ -18,6 +18,8 @@ public class PasswordTest {
 		
 		Assert.assertEquals(decrypt, "teste");
 		
+		//teste
+		
 	}
 	
 }

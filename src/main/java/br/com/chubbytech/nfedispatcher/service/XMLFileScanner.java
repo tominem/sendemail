@@ -17,11 +17,12 @@ import br.com.chubbytech.nfedispatcher.model.Email;
 
 public class XMLFileScanner implements Runnable{
 
+	static Logger logger = LoggerFactory.getLogger(XMLFileScanner.class);
+	
 	private long lastDate;
 	
 	private AtomicInteger count = new AtomicInteger(1);
 	
-	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Override
 	public void run() {

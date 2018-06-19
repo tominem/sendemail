@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.com.chubbytech.nfedispatcher.model.ErrorResponse;
 import br.com.chubbytech.nfedispatcher.model.InvalidationException;
 import br.com.chubbytech.nfedispatcher.model.Response;
 import br.com.chubbytech.nfedispatcher.model.Status;
 
 public class ResponseGenerator {
+	
+	static Logger logger = LoggerFactory.getLogger(ResponseGenerator.class);
 
 	public void responseOK(String id) {
 
@@ -22,9 +27,7 @@ public class ResponseGenerator {
 			
 		} catch (IOException ex) {
 			
-			ex.printStackTrace();
-			
-			//TODO imprimir o log
+			logger.error(ex.getMessage(), ex);
 			
 		}
 		
@@ -60,9 +63,7 @@ public class ResponseGenerator {
 			
 		} catch (Exception ex) {
 			
-			ex.printStackTrace();
-			
-			//TODO imprimir log
+			logger.error(ex.getMessage(), ex);
 			
 		}
 		

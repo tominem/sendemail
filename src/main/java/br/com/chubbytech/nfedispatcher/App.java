@@ -11,7 +11,7 @@ import br.com.chubbytech.nfedispatcher.model.ValidatorUtis;
 import br.com.chubbytech.nfedispatcher.service.XMLFileScanner;
 
 /**
- * Hello world!
+ * Main class
  *
  */
 public class App 

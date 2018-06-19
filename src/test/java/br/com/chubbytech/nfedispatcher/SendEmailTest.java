@@ -1,17 +1,22 @@
 package br.com.chubbytech.nfedispatcher;
 
+import java.io.File;
+
 import org.junit.Test;
+
+import br.com.chubbytech.nfedispatcher.model.Email;
+import br.com.chubbytech.nfedispatcher.service.SendMail;
 
 public class SendEmailTest {
 	
 	@Test
-	public void send() {
-
-//		Email email = Email.fromXML(new File("C:/Users/tom/email-01.xml"));
+	public void send() throws Exception {
 		
-//		Email.validate(email);
+		Email email = Email.fromXML(new File("src/test/resources/email-01.xml"));
 		
-//		new SendMail(email).send();
+		Email.validate(email);
+		
+		new SendMail(email).send();
 		
 	}
 		

@@ -1,0 +1,22 @@
+<email>
+  <id>001</id>
+  <from smtpHost="smtp.gmail.com" smtpPort="587" ssl="true" tls="true" auth="true" username="emaildeorigem@gmail.com" password="XXXXsadasdewgerfgfd==="/>
+  <to>
+    <addresses>
+      <address value="emaildedestino1@gmail.com"/>
+	  <address value="emaildedestino2@gmail.com"/>
+	  <address value="emaildedestino3@gmail.com"/>
+    </addresses>
+  </to>
+  <messageBody subject="NFe Nacional" content="text/html; charset=UTF-8" text="file://C:/nfe.html">
+    <msg-parameters>
+      <parameter key="$cliente"   value="Fulano de tal"/>
+      <parameter key="$chave_nfe" value="NFe351602580627790002305500200008451810061998874"/>
+	  <parameter key="$protocolo" value="1351600977245678996"/>
+    </msg-parameters>
+    <attachments>
+      <file src="C:/danfe.pdf"/>
+      <file src="C:/danfe.xml"/>
+    </attachments>
+  </messageBody>
+</email>

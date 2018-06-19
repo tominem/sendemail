@@ -85,25 +85,26 @@ public class SendMail {
 		multipart.addBodyPart(textPart);
 		
 		for(Attachment att : messageBody.getAttachments()){
-			addAttachment(multipart, att.getSrc());
+			addAttachment(multipart, att);
 		}
 		
 		return multipart;
 	}
 	
-	private void addAttachment(Multipart multipart, String filename) throws MessagingException
+	private void addAttachment(Multipart multipart, Attachment att) throws MessagingException
 	{
-	    DataSource source = new FileDataSource(filename);
+	    DataSource source = new FileDataSource(att.getSrc());
 	    BodyPart messageBodyPart = new MimeBodyPart();        
 	    messageBodyPart.setDataHandler(new DataHandler(source));
-	    messageBodyPart.setFileName(filename);
+	    messageBodyPart.setFileName(att.getFileName());
 	    multipart.addBodyPart(messageBodyPart);
 	}
 
 	private InternetAddress[] buildAddresses(List<Address> addresses) throws AddressException {
 		return InternetAddress
-				.parse(addresses.stream().map(Object::toString)
-				.collect(Collectors.joining(",")));
+				.parse(addresses.stream()
+								.map(Object::toString)
+								.collect(Collectors.joining(",")));
 	}
 	
 	private Session createSession(Properties emailProps, String userName, String senha) {

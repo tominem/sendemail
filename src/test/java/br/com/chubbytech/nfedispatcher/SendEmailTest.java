@@ -72,14 +72,14 @@ public class SendEmailTest {
 //				
 //				@Override
 //				protected PasswordAuthentication getPasswordAuthentication() {
-//					return new PasswordAuthentication("tominemtom@gmail.com", "ewt9168");
+//					return new PasswordAuthentication("outroemail@gmail.com", "qwrewrwerwer");
 //				}
 //				
 //			});
 //
 //			Message message = new MimeMessage(session);
-//			message.setFrom(new InternetAddress("tominemtom@gmail.com"));
-//			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("tominemtom@gmail.com"));
+//			message.setFrom(new InternetAddress("outroemail@gmail.com"));
+//			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("outroemail@gmail.com"));
 //			message.setSubject("Testing Subject");
 //			message.setText("Dear Mail Crawler,"
 //				+ "\n\n No spam to my email, please!");
